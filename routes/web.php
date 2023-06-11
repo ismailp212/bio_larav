@@ -46,6 +46,11 @@ Route::get('/services', [controller1::class,'ADDS'])->name('ADDS');
 Route::post('/services', [controller1::class,'ADDSTODB'])->name('ADDSTODB');
 
 
-route::get('/add_online_product',function(){
-    return view('add_online_product');
-});
+// route::get('/add_product',function(){
+//     return view('add_product');
+// })->name('novoprod');
+Route::get('/add_product' , [controller1::class,'listProds'])->name('novoprod');
+Route::post('/add_product', [controller1::class,'storeProds'])->name('NewProd');
+
+Route::get('/add_collection', [controller1::class, 'listCollec'])->name('novocoll');
+Route::post('/add_collection', [controller1::class,'storeCollec'])->name('NewColl');

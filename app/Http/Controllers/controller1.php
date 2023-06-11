@@ -6,6 +6,8 @@ use App\Models\customers;
 use App\Models\products;
 use App\Models\services;
 use App\Models\customer;
+use App\Models\NouveauProduit;
+use App\Models\NouveauColl;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -61,8 +63,156 @@ class controller1 extends Controller
       return redirect()->route('ADDS');
    }
 
+
 /* ---------------------------------------------------------------------- */
 
+
+public function storeProds(Request $request)
+{
+    $validatedData = $request->validate([
+        'title' => 'required',
+        'description' => 'required',
+        'category' => 'required',
+        'old-price' => 'required',
+        'actual-price' => 'required',
+        'image' => 'required|image',
+    ]);
+
+    $title = $validatedData['title'];
+    $description = $validatedData['description'];
+    $category = $request->input('category');
+    $oldPrice = $validatedData['old-price'];
+    $actualPrice = $validatedData['actual-price'];
+    $image = $request->file('image')->store('images');
+
+    $inserted = NouveauProduit::create([
+        'titre' => $title,
+        'description' => $description,
+        'category' => $category,
+        'old_price' => $oldPrice,
+        'actual_price' => $actualPrice,
+        'image' => $image
+    ]);
+
+    if ($inserted) {
+        return redirect()->route('novoprod')->with('success', 'Product added successfully!');
+    } else {
+        return redirect()->back()->with('error', 'Failed to add product.');
+    }
+}
+
+
+/* ---------------------------------------------------------------------- */
+
+
+
+public function listProds()
+{
+    $getProd = NouveauProduit::all();
+    return view('add_product', ['Prods' => $getProd]);
+}
+
+/* ---------------------------------------------------------------------- */
+
+
+
+public function listprodsJSON(){
+
+   $newproducts = NouveauProduit::all();
+
+   return response()->json($newproducts);
+}
+
+/* ---------------------------------------------------------------------- */
+
+public function listCollec(){
+   $getColl = NouveauColl::all();
+   return view('add_collection' , ['Colls' => $getColl]);
+}
+
+
+/* ---------------------------------------------------------------------- */
+
+
+public function storeCollec(Request $request)
+{
+    $validatedData = $request->validate([
+        'nom_coll' => 'required',
+        'description_coll' => 'required',
+        'old-price_coll' => 'required',
+        'actual-price_coll' => 'required',
+        'image_coll' => 'required|image',
+    ]);
+
+    $title = $validatedData['nom_coll'];
+    $description = $validatedData['description_coll'];
+    $category = $request->input('category');
+    $oldPrice = $validatedData['old-price_coll'];
+    $actualPrice = $validatedData['actual-price_coll'];
+    $image = $request->file('image_coll')->store('public/collcetions_images');
+
+    // Remove the "public/" prefix from the image path
+    $imagePath = str_replace('public/', '', $image);
+
+    $inserted = NouveauColl::create([
+        'name' => $title,
+        'description' => $description,
+        'actual_price' => $actualPrice,
+        'old_price' => $oldPrice,
+        'photo' => $imagePath, // Use the updated image path here
+    ]);
+
+    if ($inserted) {
+        return redirect()->route('novocoll')->with('success', 'Collection added successfully!');
+    } else {
+        return redirect()->back()->with('error', 'Failed to add product.');
+    }
+}
+
+
+
+
+
+/* ---------------------------------------------------------------------- */
+
+
+public function listcollsJSON(){
+
+   $newcollections = NouveauColl::all();
+
+   foreach ($newcollections as $collection) {
+      $collection->photo = asset('storage/' . $collection->photo);
+  }
+
+   return response()->json($newcollections);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ---------------------------------------------------------------------- */
 
    public function GETDATATYPE (Request $req){
 
