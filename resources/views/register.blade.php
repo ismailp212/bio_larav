@@ -20,17 +20,32 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Create Account</h3></div>
                                     <div class="card-body">
+
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+
+
+
                                         <form action="{{route('registerD')}}" method="post">
+                                        
+                                        @csrf
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input name="companyname" class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" />
+                                                        <input name="company_name" class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" />
                                                         <label for="inputFirstName">Conmpany Name</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating">
-                                                        <input name="companyphone" class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" />
+                                                        <input name="company_number" class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" />
                                                         <label for="inputLastName">Conmpany Phone</label>
                                                     </div>
                                                 </div>
@@ -42,13 +57,13 @@
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input name="pass" class="form-control" id="inputPassword" type="password" placeholder="Create a password" />
+                                                        <input name="password" class="form-control" id="inputPassword" type="password" placeholder="Create a password" />
                                                         <label for="inputPassword">Password</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="inputPasswordConfirm" type="password" placeholder="Confirm password" />
+                                                        <input name="password_confirmation" class="form-control" id="inputPasswordConfirm" type="password" placeholder="Confirm password" />
                                                         <label for="inputPasswordConfirm">Confirm Password</label>
                                                     </div>
                                                 </div>

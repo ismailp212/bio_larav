@@ -21,7 +21,7 @@
     
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             
-            <a class="navbar-brand ps-3" href="http://127.0.0.1:8000/">ARGAN THERAPIES</a>
+            <a class="navbar-brand ps-3" href="http://127.0.0.1:8000/">{{ session('company_name') }}</a>
            
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
           
@@ -34,7 +34,11 @@
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         
-                        <li><a class="dropdown-item" href="http://127.0.0.1:8000/login">Logout</a></li>
+                        <li>
+                        <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <button class="dropdown-item" type="submit">Logout</button></li>
+                        </form>
                     </ul>
                 </li>
             </ul>
@@ -80,6 +84,10 @@
                             <a class="nav-link" href="http://127.0.0.1:8000/add_collection">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Ajouter Collection
+                            </a>
+                            <a class="nav-link" href="http://127.0.0.1:8000/Clients">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Les Clients
                             </a>
                             <a class="nav-link" href="http://127.0.0.1:8000/charts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>

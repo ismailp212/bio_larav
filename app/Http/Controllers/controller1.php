@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
+
 use App\Models\customers;
 use App\Models\products;
 use App\Models\services;
@@ -10,6 +14,7 @@ use App\Models\NouveauProduit;
 use App\Models\NouveauColl;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\users;
 
 class controller1 extends Controller
 {
@@ -362,10 +367,81 @@ public function listcollsJSON(){
    /* ---------------------------------------------------------------------- */
 
 
-   
+   public function login(Request $req){
+
+
+      if(Auth::attempt(['email'=>$req->email,'password'=>$req->password])){
+         $req->session()->regenerate();
+
+
+         $C=users::where("email",$req->email)->first();
+         session()->put('company_name',$C->company_name );
+
+         return redirect()->route('dashboard'); 
+         }
+
+         return back()->withErrors([
+         'message' => 'Adresse email invalide!',
+         ])->onlyInput('email');
+         
+   }
 
 
 
+   /* ---------------------------------------------------------------------- */
+
+
+   public function register(){
+
+      return view('register');
+
+   }
+
+     /* ---------------------------------------------------------------------- */
+
+
+     public function registerD(Request $req){
+
+      //dd($req->all());
+
+      $validate=$req->validate([
+         'company_name' => 'required|string|max:255',
+         'company_number' => 'required|string|max:255',
+         'email' => 
+         'required|string|email|max:255|unique:users',
+         'password' => 
+         'required|string|min:8|confirmed',
+         ]);
+
+         $user = Users::create([
+         'company_name' => $validate['company_name'],
+         'company_number' => $req->company_number,
+         'email' => $validate['email'],
+         'password' => Hash::make($validate['password']),
+         ]);
+
+         if ($user) {
+
+            auth()->login($user);
+
+            return redirect()->route('dashboard');
+        } else {
+         return redirect()->back()->withErrors(['message' => 'Failed to create user.'])->withInput();
+        }
+
+   }
+
+
+  /* ---------------------------------------------------------------------- */
+
+
+
+   public function logout(Request $request){
+      Auth::logout();
+      $request->session()->invalidate();
+      $request->session()->regenerateToken();
+      return redirect()->route('login');
+      }
 
    
    
