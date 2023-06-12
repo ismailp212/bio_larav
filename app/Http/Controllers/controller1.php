@@ -312,7 +312,7 @@ public function listcollsJSON(){
 
    public function updateSD (Request $req){
          $up=services::where('id',$req->service_id)->update(['customer_name'=>$req->ClientN,'customer_phone'=>$req->clientnum,'price'=>$req->price,'seller'=>$req->seller,'order_date'=>$req->date,'service_type'=>$req->service_type,'paid'=>$req->P]);
-         return redirect()->route('GETDATA');
+         return redirect()->route('reservation');
    }
 
    /* ---------------------------------------------------------------------- */
@@ -340,7 +340,7 @@ public function listcollsJSON(){
    public function updatePD(Request $req)
    {
       $up=products::where('id',$req->product_id)->update(['customer_name'=>$req->ClientN,'customer_phone'=>$req->clientnum,'price'=>$req->price,'seller'=>$req->seller,'order_date'=>$req->date,'product_name'=>$req->ProductN,'paid'=>$req->P,'Qantity'=>$req->Qantity]);
-         return redirect()->route('GETDATA');
+         return redirect()->route('commendes');
    }
 
 
@@ -443,8 +443,121 @@ public function listcollsJSON(){
       return redirect()->route('login');
       }
 
-   
-   
+    /* ---------------------------------------------------------------------- */
+
+
+    public function reservation(){
+      $T=services::all();
+      return view('reservation',['T'=>$T]);
+    }
+
+    /* ---------------------------------------------------------------------- */
+
+    public function reservation_data(Request $req){
+
+      
+      $paid=$req->paid;
+      $start_date=$req->start_date;
+      $end_date=$req->end_date;
+      $seller=$req->seller;
+
+
+      $getP=products::all();
+      $getS=services::all();
+
+      if(isset($start_date) AND isset($end_date) AND isset($seller) AND isset($paid))
+      {
+         $s=services::where("order_date",">=",$start_date)->where("order_date","<=",$end_date)->where("seller",$seller)->where("paid",$paid) ->get();
+
+         return view('reservation',['T'=>$s]);
+      }
+      if(isset($start_date) AND isset($end_date))
+      {
+         $s=services::where("order_date",">=",$start_date)->where("order_date","<=",$end_date)->get();
+
+         return view('reservation',['T'=>$s]);
+      }
+      elseif( isset($seller) AND isset($paid)){
+
+         $s=services::where("seller",$seller)->where("paid",$paid)->get();
+
+         return view('reservation',['T'=>$s]);    
+        }
+      elseif( isset($paid)){
+
+         $s=services::where("paid",$paid)->get();
+
+         return view('reservation',['T'=>$s]);
+      }
+      elseif( isset($seller)){
+        
+         $s=services::where("seller",$seller)->get();
+
+          return view('reservation',['T'=>$s]);
+      }
+      else {
+         return view('reservation',['T'=>$getS]);
+      }
+    }
+
+
+    /* ---------------------------------------------------------------------- */
+
+
+   public function commendes(){
+   $T=products::all();
+   return view('commendes',['T'=>$T]);
+    }
+
+     /* ---------------------------------------------------------------------- */
+
+    public function commendes_data(Request $req){
+
+     
+      $paid=$req->paid;
+      $start_date=$req->start_date;
+      $end_date=$req->end_date;
+      $seller=$req->seller;
+
+
+      $getP=products::all();
+      
+
+      if(isset($start_date) AND isset($end_date) AND isset($seller) AND isset($paid))
+      {
+         $p=products::where("order_date",">=",$start_date)->where("order_date","<=",$end_date)->where("seller",$seller)->where("paid",$paid)->get();
+
+         return view('commendes',['T'=>$p]);
+      }
+      if(isset($start_date) AND isset($end_date))
+      {
+         $p=products::where("order_date",">=",$start_date)->where("order_date","<=",$end_date)->get();
+
+         
+         return view('commendes',['T'=>$p]);
+      }
+      elseif( isset($seller) AND isset($paid)){
+         $p=products::where("seller",$seller)->where("paid",$paid)->get();
+
+         return view('commendes',['T'=>$p]);
+      }
+      elseif( isset($paid)){
+         $p=products::where("paid",$paid)->get();
+
+         return view('commendes',['T'=>$p]);
+      }
+      elseif( isset($seller)){
+         $p=products::where("seller",$seller)->get();
+
+         return view('commendes',['T'=>$p]);
+      }
+      else {
+         return view('commendes',['T'=>$getP]);
+      }
+
+    }
+
+     
    }
 
    

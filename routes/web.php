@@ -28,6 +28,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/Clients',[controller1::class,'GETDATA'])->name('GETDATA');
     Route::post('/Clients',[controller1::class,'GETDATATYPE'])->name('GETDATATYPE');
 
+    Route::get('/reservation',[controller1::class,'reservation'])->name('reservation');
+    Route::post('/reservation',[controller1::class,'reservation_data'])->name('reservation_data');
+
+    Route::get('/commendes',[controller1::class,'commendes'])->name('commendes');
+    Route::post('/commendes',[controller1::class,'commendes_data'])->name('commendes_data');
     
     Route::get('/charts',[controller1::class,'charts'])->name('charts');
 
@@ -61,7 +66,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 route::middleware('guest')->group(function(){
-    
+
     Route::get('/login', function () {
     return view('login');
     })->name('login');

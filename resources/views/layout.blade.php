@@ -69,11 +69,11 @@
                                     <a class="nav-link" href="http://127.0.0.1:8000/services">Services</a>
                                 </nav>
                             </div>
-                            <a class="nav-link" href="http://127.0.0.1:8000/Clients">
+                            <a class="nav-link" href="http://127.0.0.1:8000/commendes">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Les Commandes
                             </a>
-                            <a class="nav-link" href="http://127.0.0.1:8000/Clients">
+                            <a class="nav-link" href="http://127.0.0.1:8000/reservation">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Les Reservation
                             </a>
