@@ -85,10 +85,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Ajouter Collection
                             </a>
-                            <a class="nav-link" href="http://127.0.0.1:8000/Clients">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Les Clients
-                            </a>
+                          
                             <a class="nav-link" href="http://127.0.0.1:8000/charts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Statistiques
