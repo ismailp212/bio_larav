@@ -152,7 +152,7 @@ public function delete_prod()
 
 public function listCollec(){
    $getColl = NouveauColl::all();
-   return view('add_collection' , ['Colls' => $getColl]);
+   return view('add_collection' , ['Colls' => $getColl , 'etat'=> 'normal']);
 }
 
 
@@ -233,21 +233,42 @@ public function delete_coll()
 
 
 
+/* ---------------------------------------------------------------------- */
 
 
+ public function update_coll(){
+   $id=request('id');
+
+   $T=NouveauColl::where('id',$id)->first();
+
+   return view('add_collection',['T'=> $T , 'etat'=> 'update']);
+ }
 
 
+ public function update_coll_data(Request $req){
 
 
+   $image = $req->file('image_coll')->store('public/collcetions_images');
+
+   $up=NouveauColl::where('id',request('id'))->update(['name' => $req->nom_coll,
+   'description' => $req->description_coll,
+   'actual_price' => $req->old_price_coll,
+   'old_price' => $req->actual_price_coll,
+   'photo' => $req->imagePath,]);
 
 
-
+   return redirect()->route('novocoll');
+ }
 
 
 
 
 
 /* ---------------------------------------------------------------------- */
+
+
+
+
 
    public function GETDATATYPE (Request $req){
 
@@ -411,7 +432,7 @@ public function delete_coll()
          }
 
          return back()->withErrors([
-         'message' => 'Adresse email invalide!',
+         'message' => 'Adresse email or password invalide !',
          ])->onlyInput('email');
          
    }

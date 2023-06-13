@@ -63,8 +63,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/add_product' , [controller1::class,'listProds'])->name('novoprod');
     Route::post('/add_product', [controller1::class,'storeProds'])->name('NewProd');
 
+    
     Route::get('/add_collection', [controller1::class, 'listCollec'])->name('novocoll');
     Route::post('/add_collection', [controller1::class,'storeCollec'])->name('NewColl');
+
+
+    Route::get('/update_coll', [controller1::class, 'update_coll'])->name('update_coll');
+    Route::post('/update_coll_data', [controller1::class,'update_coll_data'])->name('update_coll_data');
 });
 
 
