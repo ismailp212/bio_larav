@@ -45,6 +45,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::delete('/delete',[controller1::class,'delete'])->name('delete');
 
+    Route::delete('/delete_coll',[controller1::class,'delete_coll'])->name('delete_coll');
+
+    Route::delete('/delete_prod',[controller1::class,'delete_prod'])->name('delete_prod');
+
 
     Route::get('/products', [controller1::class,'ADDP'])->name('ADDP');
     Route::post('/products', [controller1::class,'ADDPTODB'])->name('ADDPTODB');

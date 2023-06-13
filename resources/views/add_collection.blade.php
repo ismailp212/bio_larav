@@ -100,7 +100,14 @@
                                         <h6 class="text-success">Actual Price:<span>{{$coll->actual_price}}</span></h6>
                                     </div>
                                     <div class="mt-3">
-                                        <button class="btn btn-danger btn-sm mr-2 delete-btn">Delete</button>
+
+                                        <form action="{{route('delete_coll', ['id' => $coll->id])}}" method="post">
+                                                        {{method_field('DELETE')}}
+                                                        {{csrf_field()}}
+
+                                            <button class="btn btn-danger btn-sm mr-2 delete-btn" type="submit">DELETE</button>
+                                        </form>
+                                        <br>
                                         <button class="btn btn-primary btn-sm update-btn">Update</button>
                                     </div>
                                 </div>

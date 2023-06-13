@@ -103,7 +103,9 @@
                     @foreach($Prods as $prod)
                         <div class="col-md-4">
                             <div class="card mb-3">
-                                <img src="" class="card-img-top" alt="Product Image">
+                            <img src="{{$prod->image}}" alt="Image">
+
+                                
                                 <div class="card-body">
                                     <h4 class="text-muted">{{$prod->category}}</h4>
                                     <h5 class="card-title">{{$prod->titre}}</h5>
@@ -113,7 +115,13 @@
                                         <h6 class="text-success">Actual Price:<span>{{$prod->actual_price}}</span></h6>
                                     </div>
                                     <div class="mt-3">
-                                        <button class="btn btn-danger btn-sm mr-2 delete-btn">Delete</button>
+                                    <form action="{{route('delete_prod', ['id' => $prod->id])}}" method="post">
+                                                        {{method_field('DELETE')}}
+                                                        {{csrf_field()}}
+
+                                            <button class="btn btn-danger btn-sm mr-2 delete-btn" type="submit">DELETE</button>
+                                    </form>
+                                        <br>
                                         <button class="btn btn-primary btn-sm update-btn">Update</button>
                                     </div>
                                 </div>

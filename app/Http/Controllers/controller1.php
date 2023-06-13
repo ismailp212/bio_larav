@@ -89,6 +89,10 @@ public function storeProds(Request $request)
     $oldPrice = $validatedData['old-price'];
     $actualPrice = $validatedData['actual-price'];
     $image = $request->file('image')->store('images');
+    //$imagePath = $request->file('image')->storeAs('public/assets/img', $request->file('image')->getClientOriginalName());
+    //$image = 'public/assets/img/' . basename($imagePath);
+    //$image = $request->file('image')->store('images', 'public');
+    
 
     $inserted = NouveauProduit::create([
         'titre' => $title,
@@ -127,6 +131,22 @@ public function listprodsJSON(){
 
    return response()->json($newproducts);
 }
+
+
+
+/* ---------------------------------------------------------------------- */
+
+public function delete_prod()
+   {
+      $id = request('id');
+      
+
+   
+      NouveauProduit::where('id', $id)->delete();
+      
+
+       return redirect()->back();
+   }
 
 /* ---------------------------------------------------------------------- */
 
@@ -194,11 +214,21 @@ public function listcollsJSON(){
 
 
 
+/* ---------------------------------------------------------------------- */
 
 
 
+public function delete_coll()
+   {
+      $id = request('id');
+      
 
+   
+      NouveauColl::where('id', $id)->delete();
+      
 
+       return redirect()->back();
+   }
 
 
 
