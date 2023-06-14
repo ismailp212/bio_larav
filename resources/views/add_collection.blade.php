@@ -42,7 +42,7 @@
             </style>
             <div class="container">
                 <div class="form-container">
-                    <h2 class="text-center mb-4">Nouveau Collection</h2>
+                   
                     @if(session('success'))
                         <div id="success-message" class="alert alert-success">
                             {{ session('success') }}
@@ -58,6 +58,7 @@
 
   @if($etat == 'update')
 
+  <h2 class="text-center mb-4">Update Collection</h2>
                 <form action="{{ route('update_coll_data',['id'=>$T->id]) }}" method="post" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <div class="form-group">
@@ -96,6 +97,7 @@
 
                 @if($etat == 'normal')
 
+                <h2 class="text-center mb-4">Nouveau Collection</h2>
                     <form action="{{ route('NewColl') }}" method="post" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <div class="form-group">

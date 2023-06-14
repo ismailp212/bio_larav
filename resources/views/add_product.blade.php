@@ -30,7 +30,7 @@
             </style>
             <div class="container">
                 <div class="form-container">
-                    <h2 class="text-center mb-4">Nouveau Produit</h2>
+                    
                     @if(session('success'))
                         <div id="success-message" class="alert alert-success">
                             {{ session('success') }}
@@ -59,7 +59,7 @@
 
 
                     @if($etat == 'update')
-
+                    <h2 class="text-center mb-4">Update Produit</h2>
 
                     <form action="{{ route('update_prod_data',['id'=>$T->id]) }}" method="post" enctype="multipart/form-data">
                         {{csrf_field()}}
@@ -110,6 +110,7 @@
 
                     @if($etat == 'normal')
 
+                    <h2 class="text-center mb-4">Nouveau Produit</h2>
                     <form action="{{ route('NewProd') }}" method="post" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <div class="form-group">
