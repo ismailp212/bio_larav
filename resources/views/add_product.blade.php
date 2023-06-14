@@ -43,6 +43,73 @@
                         </div>
                     @endif
 
+                    <script>
+                        $(document).ready(function() {
+
+                        // Fade out success message after 3 seconds
+                        $('#success-message').delay(2500).fadeOut(500);
+
+                        // Fade out error message after 3 seconds
+                        $('#error-message').delay(2500).fadeOut(500);
+                            });
+
+                    </script>
+
+
+
+
+                    @if($etat == 'update')
+
+
+                    <form action="{{ route('update_prod_data',['id'=>$T->id]) }}" method="post" enctype="multipart/form-data">
+                        {{csrf_field()}}
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" value="{{$T->titre}}" name="title" placeholder="Enter product title">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" name="description"  rows="3" placeholder="{{$T->description}}"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select class="form-control"  name="category">
+                                <option value="{{$T->category}}" disabled selected>Select a category</option>
+                                <option value="Miel">Miel</option>
+                                <option value="Crème">Crème</option>
+                                <option value="Huile">Huile</option>
+                                <option value="Poudre">Poudre</option>
+                            </select>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="old-price">Old Price</label>
+                            <input type="number" class="form-control" name="old_price" value="{{$T->old_price}}" placeholder="Enter old price">
+                        </div>
+                        <div class="form-group">
+                            <label for="actual-price">Actual Price</label>
+                            <input type="number" class="form-control" name="actual_price" value="{{$T->actual_price}}" placeholder="Enter actual price">
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Image</label>
+                            <input type="file" class="form-control-file" value="{{$T->image}}" name="image">
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </form>
+
+            </div>
+         </div>
+
+
+                    @endif
+
+
+
+
+                    @if($etat == 'normal')
+
                     <form action="{{ route('NewProd') }}" method="post" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <div class="form-group">
@@ -66,11 +133,11 @@
                         </div>
                         <div class="form-group">
                             <label for="old-price">Old Price</label>
-                            <input type="number" class="form-control" name="old-price" placeholder="Enter old price">
+                            <input type="number" class="form-control" name="old_price" placeholder="Enter old price">
                         </div>
                         <div class="form-group">
                             <label for="actual-price">Actual Price</label>
-                            <input type="number" class="form-control" name="actual-price" placeholder="Enter actual price">
+                            <input type="number" class="form-control" name="actual_price" placeholder="Enter actual price">
                         </div>
                         <div class="form-group">
                             <label for="image">Image</label>
@@ -83,17 +150,7 @@
 
             </div>
          </div>
-         <script>
-            $(document).ready(function() {
-
-            // Fade out success message after 3 seconds
-            $('#success-message').delay(2500).fadeOut(500);
-
-            // Fade out error message after 3 seconds
-            $('#error-message').delay(2500).fadeOut(500);
-        });
-
-         </script>  
+          
 
 
 
@@ -122,7 +179,7 @@
                                             <button class="btn btn-danger btn-sm mr-2 delete-btn" type="submit">DELETE</button>
                                     </form>
                                         <br>
-                                        <button class="btn btn-primary btn-sm update-btn">Update</button>
+                                        <a href="{{route('update_prod',['id'=> $prod->id])}}"><button class="btn btn-primary btn-sm update-btn">Update</button></a>
                                     </div>
                                 </div>
                             </div>
@@ -134,7 +191,7 @@
                 </div>
             </div>
 
-
+            @endif
 
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">

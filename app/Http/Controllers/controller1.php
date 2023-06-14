@@ -78,8 +78,8 @@ public function storeProds(Request $request)
         'title' => 'required',
         'description' => 'required',
         'category' => 'required',
-        'old-price' => 'required',
-        'actual-price' => 'required',
+        'old_price' => 'required',
+        'actual_price' => 'required',
         'image' => 'required|image',
     ]);
 
@@ -118,7 +118,7 @@ public function storeProds(Request $request)
 public function listProds()
 {
     $getProd = NouveauProduit::all();
-    return view('add_product', ['Prods' => $getProd]);
+    return view('add_product', ['Prods' => $getProd , 'etat'=> 'normal']);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -131,6 +131,40 @@ public function listprodsJSON(){
 
    return response()->json($newproducts);
 }
+
+
+
+/* ---------------------------------------------------------------------- */
+
+
+public function update_prod(){
+   $id=request('id');
+
+   $T=NouveauProduit::where('id',$id)->first();
+
+   return view('add_product',['T'=> $T , 'etat'=> 'update']);
+ }
+
+
+ public function update_prod_data(Request $req){
+
+
+  
+   $image = $req->file('image')->store('images');
+   $up=NouveauProduit::where('id',request('id'))->update([
+      'titre' => $req->title,
+      'description' => $req->description,
+      'category' => $req->category,
+      'old_price' => $req->old_price,
+      'actual_price' => $req->actual_price,
+      'image' => $image]);
+
+
+   return redirect()->route('novoprod');
+ }
+
+
+
 
 
 

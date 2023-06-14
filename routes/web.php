@@ -70,6 +70,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/update_coll', [controller1::class, 'update_coll'])->name('update_coll');
     Route::post('/update_coll_data', [controller1::class,'update_coll_data'])->name('update_coll_data');
+
+    Route::get('/update_prod', [controller1::class, 'update_prod'])->name('update_prod');
+    Route::post('/update_prod_data', [controller1::class,'update_prod_data'])->name('update_prod_data');
 });
 
 

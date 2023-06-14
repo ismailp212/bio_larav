@@ -79,7 +79,7 @@
                         </div>
                         <div class="form-group">
                             <label for="image">Image</label>
-                            <input type="file" class="form-control-file" value="{{$T->value}}" name="image_coll">
+                            <input type="file" class="form-control-file" value="{{$T->image}}" name="image_coll">
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">Update</button>
